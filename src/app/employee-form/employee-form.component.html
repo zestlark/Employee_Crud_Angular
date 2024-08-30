@@ -1,0 +1,240 @@
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <h2
+      class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900"
+    >
+      <span *ngIf="updateMode">Update </span>Employee Form
+    </h2>
+  </div>
+
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+    <form
+      [formGroup]="employeeForm"
+      class="space-y-6"
+      (ngSubmit)="formSubmit()"
+    >
+      <div>
+        <label
+          for="id"
+          class="block text-sm font-medium leading-6 text-gray-900"
+          >ID</label
+        >
+        <div class="mt-2">
+          <input
+            [readOnly]="updateMode"
+            formControlName="_id"
+            id="id"
+            type="number"
+            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          />
+          <div *ngIf="gId?.touched">
+            <div *ngIf="gId?.hasError('required')" class="error">
+              ID is required.
+            </div>
+            <div *ngIf="gId?.hasError('pattern')" class="error">
+              ID must be a numeric value.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label
+          for="name"
+          class="block text-sm font-medium leading-6 text-gray-900"
+          >Name</label
+        >
+        <div class="mt-2">
+          <input
+            id="name"
+            formControlName="name"
+            type="text"
+            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          />
+          <div
+            *ngIf="
+              getField('name')?.touched &&
+              getField('name')?.hasError('required')
+            "
+            class="error"
+          >
+            Name is required.
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label
+          for="email"
+          class="block text-sm font-medium leading-6 text-gray-900"
+          >Email Address</label
+        >
+        <div class="mt-2">
+          <input
+            id="email"
+            formControlName="email"
+            type="email"
+            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          />
+          <div *ngIf="getField('email')?.touched">
+            <div *ngIf="getField('email')?.hasError('required')" class="error">
+              Email is required.
+            </div>
+            <div *ngIf="getField('email')?.hasError('email')" class="error">
+              Please enter a valid email address.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label
+          for="joining-date"
+          class="block text-sm font-medium leading-6 text-gray-900"
+          >Joining Date</label
+        >
+        <div class="mt-2">
+          <input
+            id="joining-date"
+            formControlName="joiningDate"
+            type="date"
+            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          />
+          <div
+            *ngIf="
+              getField('joiningDate')?.touched &&
+              getField('joiningDate')?.hasError('required')
+            "
+            class="error"
+          >
+            Joining date is required.
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label
+          for="dept"
+          class="block text-sm font-medium leading-6 text-gray-900"
+          >Department</label
+        >
+        <div class="mt-2">
+          <select
+            id="dept"
+            formControlName="dept"
+            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          >
+            <option value="" disabled selected>Select Department</option>
+            <option *ngFor="let d of dept" [value]="d">{{ d }}</option>
+          </select>
+          <div
+            *ngIf="
+              getField('dept')?.touched &&
+              getField('dept')?.hasError('required')
+            "
+            class="error"
+          >
+            Department is required.
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label
+          for="address"
+          class="block text-sm font-medium leading-6 text-gray-900"
+          >Address</label
+        >
+        <div class="mt-2">
+          <input
+            id="address"
+            formControlName="address"
+            type="text"
+            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          />
+          <div *ngIf="getField('address')?.touched">
+            <div
+              *ngIf="getField('address')?.hasError('required')"
+              class="error"
+            >
+              Address is required.
+            </div>
+            <div
+              *ngIf="getField('address')?.hasError('minlength')"
+              class="error"
+            >
+              Address must be at least 20 characters long.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label for="">Profile Pic</label>
+        <input name="profilePic" type="file" (change)="fileChange($event)" />
+      </div>
+
+      <div>
+        <label
+          for="refral-code"
+          class="block text-sm font-medium leading-6 text-gray-900"
+          >Password</label
+        >
+        <div class="mt-2">
+          <input
+            formControlName="password"
+            id="refral-code"
+            type="text"
+            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          />
+          <div *ngIf="getField('password')?.touched">
+            <div
+              *ngIf="getField('password')?.hasError('required')"
+              class="error"
+            >
+              Password is required.
+            </div>
+            <div
+              *ngIf="getField('password')?.hasError('minlength')"
+              class="error"
+            >
+              Password length must be at least 8 characters.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label
+          for="refral-code"
+          class="block text-sm font-medium leading-6 text-gray-900"
+          >confirm Password</label
+        >
+        <div class="mt-2">
+          <input
+            formControlName="confirmPassword"
+            id="refral-code"
+            type="text"
+            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          />
+          <div *ngIf="getField('confirmPassword')?.touched">
+            <div *ngIf="employeeForm?.hasError('match')" class="error">
+              Password not Match.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button
+          type="submit"
+          class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-gray-400"
+          [disabled]="employeeForm.invalid"
+        >
+          <span *ngIf="!updateMode">Submit</span>
+          <span *ngIf="updateMode">Update</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

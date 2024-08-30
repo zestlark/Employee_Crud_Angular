@@ -1,0 +1,44 @@
+<div
+  class="flex border flex-col max-w-[280px] min-w-[] bg-slate-200/50 overflow-hidden pt-5 items-center gap-x-6 rounded-lg hover:shadow-xl"
+>
+  <img class="h-20 w-20 rounded-full" [src]="toUrl(employee.profilePic)" alt="" />
+  <div>
+    <h3
+      class="text-base mt-1 text-center font-semibold leading-7 tracking-tight text-gray-900"
+    >
+      {{ employee.name }}
+    </h3>
+    <p class="text-center">
+      <b
+        ><small class="text-purple-500">{{ employee._id }}</small>
+      </b>
+    </p>
+
+    <p class="text-center opacity-50">
+      <small>
+        {{ employee.joiningDate | date : 'mediumDate' }}
+      </small>
+    </p>
+
+    <p class="text-sm opacity-70 text-center">
+      {{ employee.email }}
+    </p>
+    <p
+      class="text-center font-normal mt-2 w-[auto] text-xs mx-auto rounded-3xl bg-purple-500/10 leading-6 text-purple-500"
+    >
+      {{ employee.dept }}
+    </p>
+    <!-- <p>{{ employee.salary }}</p> -->
+    <p class="bg-slate-200 p-2 text-xs text-center mt-2 text-slate-600 min-w-full">
+      {{ employee.address }}
+    </p>
+  </div>
+  <div class="flex justify-center items-center w-full text-xs text-slate-800">
+    <a
+      [routerLink]="['../employeeform', employee._id]"
+      class="bg-blue-600/40 w-full p-3 text-center"
+      >Edit</a
+    >
+    <a class="bg-red-600/40 w-full p-3 text-center" (click)="deleteById(employee._id)">Delete</a>
+  </div>
+</div>

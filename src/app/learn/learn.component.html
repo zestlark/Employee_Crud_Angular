@@ -1,0 +1,244 @@
+<div
+  [ngStyle]="{ 'text-align': place, width: '100%', background: colorPallet }"
+>
+  <input
+    type="text"
+    class="border border-black p-2"
+    [(ngModel)]="message"
+    name="text"
+    placeholder="enter"
+  />
+  <select name="location" id="" [(ngModel)]="classRef.mylocation">
+    <option value="" selected>none</option>
+    <option [value]="item" *ngFor="let item of location">
+      {{ item | uppercase }}
+    </option>
+  </select>
+  <p>{{ message }}</p>
+  <p>your location {{ classRef.mylocation }}</p>
+  <div *ngIf="classRef.mylocation === 'dadar'; else locationElse">
+    hello dadar team
+  </div>
+  <ng-template #locationElse> <p>select dadar</p> </ng-template>
+
+  <div>
+    <p *ngIf="classRef.mylocation == 'parel'; else locationElse">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum, at?
+    </p>
+  </div>
+  <br /><br /><br />
+
+  <h3>switch case of dropdown</h3>
+  <div [ngSwitch]="classRef.mylocation">
+    <p *ngSwitchCase="'dadar'">dadar neosoft</p>
+    <p *ngSwitchCase="'parel'">parel neosoft</p>
+    <p *ngSwitchCase="'rabale'">rabale neosoft</p>
+    <p *ngSwitchDefault>select a branch</p>
+  </div>
+  <br /><br /><br />
+
+  <button class="bg-red-500 p-3" (click)="lowercase()">lowercase</button>
+  <button class="bg-blue-500 p-3" (click)="display()">display</button>
+  <button class="bg-green-500 p-3" (click)="uppercase()">Uppercase</button>
+  <div class="align-ment p-3">
+    <button class="p-3" (click)="changealign('left')">left</button>
+    <button class="p-3" (click)="changealign('center')">center</button>
+    <button class="p-3" (click)="changealign('right')">right</button>
+  </div>
+
+  <p #myPara>{{ message }}</p>
+  <button class="p-3 border" (click)="getNode(myPara)">Access Node</button>
+  <button class="p-3 border" (click)="getNode(null, myPara.innerText)">
+    Access Node value
+  </button>
+
+  <h3>ng if then else</h3>
+  <input type="text" [(ngModel)]="myAge" placeholder="your age" name="myage" />
+  <ng-template
+    *ngIf="myAge >= 18; then thenblock; else elseblock"
+  ></ng-template>
+  <ng-template #thenblock>Allowed</ng-template>
+  <ng-template #elseblock>not Alowed</ng-template>
+
+  <br />
+  <br />
+  <h1># subject Assignment</h1>
+  <h3>out of 100 for each subject</h3>
+  <label for="subject1">subject1</label>
+  <input
+    type="number"
+    class="border border-black p-2"
+    value=""
+    name="sub1"
+    (keyup)="setMarks()"
+    id="subject1"
+    [(ngModel)]="subjects.sub1"
+  />
+  <br />
+  <label for="subject2">subject2</label>
+  <input
+    type="number"
+    value=""
+    class="border border-black p-2"
+    name="sub2"
+    (keyup)="setMarks()"
+    id="subject2"
+    [(ngModel)]="subjects.sub2"
+  />
+  <br />
+  <label for="subject3">subject3</label>
+  <input
+    type="number"
+    value=""
+    class="border border-black p-2"
+    name="sub3"
+    (keyup)="setMarks()"
+    id="subject3"
+    [(ngModel)]="subjects.sub3"
+  />
+
+  <h3>total : {{ total }}</h3>
+  <h3>percentage: {{ percentage }}%</h3>
+  <div *ngIf="percentage >= 70">
+    <p class="bg-purple-700 p-3">disinction</p>
+  </div>
+  <div *ngIf="percentage > 60 && percentage < 69">
+    <p class="bg-green-500 p-3">first class</p>
+  </div>
+  <div *ngIf="percentage > 40 && percentage < 59">
+    <p class="bg-yellow-500 p-3">pass</p>
+  </div>
+  <div *ngIf="percentage < 40">
+    <p class="bg-red-500 p-3">fail</p>
+  </div>
+
+  <br /><br /><br />
+  <h3>Switch case</h3>
+  <h3>percentage: {{ percentage }}%</h3>
+  <div [ngSwitch]="true">
+    <div *ngSwitchCase="percentage >= 70">
+      <p class="bg-purple-700 p-3">disinction</p>
+    </div>
+    <div *ngSwitchCase="percentage > 60 && percentage < 69">
+      <p class="bg-green-500 p-3">first class</p>
+    </div>
+    <div *ngSwitchCase="percentage > 40 && percentage < 59">
+      <p class="bg-yellow-500 p-3">pass</p>
+    </div>
+    <div *ngSwitchDefault>
+      <p class="bg-red-500 p-3">fail</p>
+    </div>
+  </div>
+
+  <br /><br />
+  <h3>ngStyle</h3>
+  <div [ngStyle]="divStyle">ngStyle</div>
+  <br /><br />
+  <h3>ngClass</h3>
+  <div [ngClass]="divClass">ngClass</div>
+  <div [ngClass]="['bg-blue-500', 'w-24', 'h-24', 'mt-4']">ngClass</div>
+  <div [ngClass]="divClassBoolean">ngClass divClassBoolean</div>
+
+  <br /><br /><br />
+  <h3>div Color</h3>
+  <input type="color" [(ngModel)]="colorPallet" name="color" id="" />
+  {{ colorPallet }}
+
+  <br /><br /><br />
+  <h3>pipes</h3>
+  {{ message | uppercase }}
+  {{ message | lowercase }}
+  {{ message | titlecase }}
+  {{ message | slice : 0 : 3 }}
+  {{ message | uppercase | spaceText }}
+  <table>
+    <th>number</th>
+    <tr>
+      <td>Salary</td>
+      <td *ngFor="let s of salary" class="p-2">{{ s }}</td>
+    </tr>
+    <tr>
+      <td>Salary</td>
+      <td *ngFor="let s of salary" class="p-2">{{ s | number }}</td>
+    </tr>
+    <tr>
+      <td>Salary</td>
+      <td *ngFor="let s of salary" class="p-2">{{ s | number : "0.2-3" }}</td>
+    </tr>
+    <tr>
+      <td>Salary</td>
+      <td *ngFor="let s of salary" class="p-2">{{ s | number : "8.2-2" }}</td>
+    </tr>
+  </table>
+
+  <table>
+    <th>currency</th>
+    <tr>
+      <td>Salary</td>
+      <td *ngFor="let s of salary" class="p-2">{{ s }}</td>
+    </tr>
+    <tr>
+      <td>Salary</td>
+      <td *ngFor="let s of salary" class="p-2">{{ s | currency }}</td>
+    </tr>
+    <tr>
+      <td>Salary</td>
+      <td *ngFor="let s of salary" class="p-2">{{ s | currency : "INR" }}</td>
+    </tr>
+    <tr>
+      <td>Salary</td>
+      <td *ngFor="let s of salary" class="p-2">
+        {{ s | currency : "EUR" : "code" }}
+      </td>
+    </tr>
+    <tr>
+      <td>Salary</td>
+      <td *ngFor="let s of salary" class="p-2">
+        {{ s | currency : "EUR" : "symbol" }}
+      </td>
+    </tr>
+    <tr>
+      <td>Salary</td>
+      <td *ngFor="let s of salary" class="p-2">
+        {{ s | currency : "EUR" : "symbol" : ".4" }}
+      </td>
+    </tr>
+    <tr>
+      <td>Salary</td>
+      <td *ngFor="let s of salary" class="p-2">
+        {{ s | currency : "EUR" : "symbol" : ".4" | spaceText }}
+      </td>
+    </tr>
+  </table>
+
+  <table>
+    <th>date</th>
+    <tr>
+      <td>{{ today }}</td>
+    </tr>
+    <tr>
+      <td>{{ today | date }}</td>
+    </tr>
+    <tr>
+      <td>{{ today | date : "shortDate" }}</td>
+    </tr>
+    <tr>
+      <td>{{ today | date : "mediumTime" }}</td>
+    </tr>
+    <tr>
+      <td>{{ today | date : "full" }}</td>
+    </tr>
+    <tr>
+      <td>{{ today | date : "MMMM,W,EEEEE" }}</td>
+    </tr>
+  </table>
+
+  <br /><br />
+  <h1 class="text-xl">Custom pipes</h1>
+  <p *ngFor="let s of salary | orderBy : 'asc'" class="p-2">
+    {{ s }}
+  </p>
+  <p *ngFor="let n of names | orderBy : 'desc'" class="p-2">
+    {{ n }}
+  </p>
+</div>

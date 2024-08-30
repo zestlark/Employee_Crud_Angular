@@ -1,0 +1,11 @@
+.error {
+  color: red;
+}
+
+input.ng-invalid {
+  background: lightcoral;
+}
+
+input.ng-valid {
+  background: lightgreen;
+}
